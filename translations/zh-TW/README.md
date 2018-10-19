@@ -9,12 +9,12 @@
 
 * [技巧](#技巧)
 * [瀏覽器支援](#瀏覽器支援)
-* [翻譯](#翻譯)
 * [貢獻守則](../../CONTRIBUTING.md)
 
 
 ## 技巧
 
+1. [使用 `noConflict()`](#使用-noconflict)
 1. [檢查 jQuery 是否成功載入](#檢查-jquery-是否成功載入)
 1. [使用 `.on()` 做 Binding，而不要使用 `.click()`](#使用-on-做-binding而不要使用-click)
 1. [返回最頂端的按鈕](#返回最頂端的按鈕)
@@ -35,6 +35,24 @@
 1. [Ajax 程序的錯誤處理](#ajax-程序的錯誤處理)
 1. [串連 Plugin 的函式呼叫](#串連-plugin-的函式呼叫)
 1. [照字母順序排序清單元素（list）](#照字母順序排清單元素list)
+1. [禁用右键单击](#禁用右键单击)
+
+
+### 使用 `noConflict()`
+
+其他JavaScript库也使用jQuery使用的`$`别名。 为了确保jQuery不会与不同库的`$`对象发生冲突，请在文档的开头使用`noConflict()`方法：
+
+```javascript
+jQuery.noConflict();
+```
+
+现在，您将使用`jQuery`变量名称而不是`$`来引用jQuery对象（例如`jQuery('div p').hide()`）。如果你在同一页面上有多个jQuery版本，你可以使用`noConflict（）`来设置一个特定版本的别名：
+
+```javascript
+let $x = jQuery.noConflict();
+```
+
+<sup>[回到目錄](#目錄)</sup>
 
 
 ### 檢查 jQuery 是否成功載入
@@ -48,7 +66,6 @@ if (typeof jQuery == 'undefined') {
   console.log('jQuery has loaded');
 }
 ```
-
 
 <sup>[回到目錄](#目錄)</sup>
 
@@ -444,14 +461,34 @@ ul.append(lis);
 <sup>[回到目錄](#目錄)</sup>
 
 
+### 禁用右键单击
+
+
+如果要禁用右键单击，您可以对整个页面进行操作...
+
+```javascript
+$(document).ready(function () {
+  $(document).bind('contextmenu', function (e) {
+    return false;
+  })
+})
+```
+
+...但是您也可以为特定元素做同样的事情：
+
+```javascript
+$(document).ready(function () {
+  $('#submit').bind('contextmenu', function (e) {
+    return false;
+  })
+})
+```
+
+<sup>[回到目錄](#目錄)</sup>
+
+
 ## 瀏覽器支援
 
 現今版本的 Chrome，Firefox，Safari，Opera，Edge 以及 IE11。
 
-## 翻譯
-
-* [Español](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/tree/master/translations/es-ES)
-* [Français](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/tree/master/translations/fr-FR)
-* [русский](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/tree/master/translations/ru-RU)
-* [简体中文](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/tree/master/translations/zh-CN)
-* [繁體中文](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/tree/master/translations/zh-TW)
+<sup>[回到目錄](#目錄)</sup>
